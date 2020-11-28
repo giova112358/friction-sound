@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="CsQl0i" name="FrictionModel" projectType="audioplug" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
+              headerPath="D:\Sound and Audio Engineering\TESI\friction\Source\SDT">
+  <MAINGROUP id="hYKJSa" name="FrictionModel">
+    <GROUP id="{50049B7C-D08A-FBDE-00C8-FC926418174B}" name="Source">
+      <GROUP id="{BD76318E-DB81-2471-EAFE-F7CABC8105B1}" name="SDT">
+        <FILE id="Bjdtqx" name="SDTAnalysis.c" compile="1" resource="0" file="Source/SDT/SDTAnalysis.c"/>
+        <FILE id="atKueb" name="SDTAnalysis.h" compile="0" resource="0" file="Source/SDT/SDTAnalysis.h"/>
+        <FILE id="tW5c78" name="SDTCommon.cpp" compile="1" resource="0" file="Source/SDT/SDTCommon.cpp"/>
+        <FILE id="KxEMmR" name="SDTCommon.h" compile="0" resource="0" file="Source/SDT/SDTCommon.h"/>
+        <FILE id="BnSAYU" name="SDTComplex.c" compile="1" resource="0" file="Source/SDT/SDTComplex.c"/>
+        <FILE id="I8pXKD" name="SDTComplex.h" compile="0" resource="0" file="Source/SDT/SDTComplex.h"/>
+        <FILE id="UMet9R" name="SDTControl.c" compile="1" resource="0" file="Source/SDT/SDTControl.c"/>
+        <FILE id="AT7Jrv" name="SDTControl.h" compile="0" resource="0" file="Source/SDT/SDTControl.h"/>
+        <FILE id="ssXaC9" name="SDTDCMotor.c" compile="1" resource="0" file="Source/SDT/SDTDCMotor.c"/>
+        <FILE id="ddyZov" name="SDTDCMotor.h" compile="0" resource="0" file="Source/SDT/SDTDCMotor.h"/>
+        <FILE id="Ogo4Y4" name="SDTDemix.c" compile="1" resource="0" file="Source/SDT/SDTDemix.c"/>
+        <FILE id="lhxpDI" name="SDTDemix.h" compile="0" resource="0" file="Source/SDT/SDTDemix.h"/>
+        <FILE id="wQl02U" name="SDTEffects.c" compile="1" resource="0" file="Source/SDT/SDTEffects.c"/>
+        <FILE id="IUCNo3" name="SDTEffects.h" compile="0" resource="0" file="Source/SDT/SDTEffects.h"/>
+        <FILE id="v6sYNC" name="SDTFFT.cpp" compile="1" resource="0" file="Source/SDT/SDTFFT.cpp"/>
+        <FILE id="Z8nOPQ" name="SDTFFT.h" compile="0" resource="0" file="Source/SDT/SDTFFT.h"/>
+        <FILE id="HusjsN" name="SDTFilters.c" compile="1" resource="0" file="Source/SDT/SDTFilters.c"/>
+        <FILE id="aoltG8" name="SDTFilters.h" compile="0" resource="0" file="Source/SDT/SDTFilters.h"/>
+        <FILE id="QnJdmp" name="SDTGases.c" compile="1" resource="0" file="Source/SDT/SDTGases.c"/>
+        <FILE id="wYXXo2" name="SDTGases.h" compile="0" resource="0" file="Source/SDT/SDTGases.h"/>
+        <FILE id="t2hrEu" name="SDTInteractors.c" compile="1" resource="0"
+              file="Source/SDT/SDTInteractors.c"/>
+        <FILE id="g2K6sN" name="SDTInteractors.h" compile="0" resource="0"
+              file="Source/SDT/SDTInteractors.h"/>
+        <FILE id="iOCpGI" name="SDTLiquids.c" compile="1" resource="0" file="Source/SDT/SDTLiquids.c"/>
+        <FILE id="F5yT3Z" name="SDTLiquids.h" compile="0" resource="0" file="Source/SDT/SDTLiquids.h"/>
+        <FILE id="ZOJ80g" name="SDTModalTracker.c" compile="1" resource="0"
+              file="Source/SDT/SDTModalTracker.c"/>
+        <FILE id="FvUk6r" name="SDTModalTracker.h" compile="0" resource="0"
+              file="Source/SDT/SDTModalTracker.h"/>
+        <FILE id="jsnXpS" name="SDTMotor.c" compile="1" resource="0" file="Source/SDT/SDTMotor.c"/>
+        <FILE id="iCLU65" name="SDTMotor.h" compile="0" resource="0" file="Source/SDT/SDTMotor.h"/>
+        <FILE id="xNRRpp" name="SDTOscillators.c" compile="1" resource="0"
+              file="Source/SDT/SDTOscillators.c"/>
+        <FILE id="K1pDs4" name="SDTOscillators.h" compile="0" resource="0"
+              file="Source/SDT/SDTOscillators.h"/>
+        <FILE id="B3xJwe" name="SDTResonators.cpp" compile="1" resource="0"
+              file="Source/SDT/SDTResonators.cpp"/>
+        <FILE id="oH520s" name="SDTResonators.h" compile="0" resource="0" file="Source/SDT/SDTResonators.h"/>
+        <FILE id="oNYDrq" name="SDTSolids.c" compile="1" resource="0" file="Source/SDT/SDTSolids.c"/>
+        <FILE id="jzbm3S" name="SDTSolids.h" compile="0" resource="0" file="Source/SDT/SDTSolids.h"/>
+        <FILE id="NLAtDf" name="SDTStructs.c" compile="1" resource="0" file="Source/SDT/SDTStructs.c"/>
+        <FILE id="WJ3m1g" name="SDTStructs.h" compile="0" resource="0" file="Source/SDT/SDTStructs.h"/>
+      </GROUP>
+      <FILE id="cqZT4Y" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="LmIqve" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
+      <FILE id="RuRi1f" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
+      <FILE id="jkHOlV" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="rjkCSg" name="DspProcessor.cpp" compile="1" resource="0"
+            file="Source/DspProcessor.cpp"/>
+      <FILE id="M4iUtZ" name="DspProcessor.h" compile="0" resource="0" file="Source/DspProcessor.h"/>
+      <FILE id="R48jT7" name="Modal.cpp" compile="1" resource="0" file="Source/Modal.cpp"/>
+      <FILE id="s4mSS1" name="Modal.h" compile="0" resource="0" file="Source/Modal.h"/>
+      <FILE id="xChSvb" name="Friction.h" compile="0" resource="0" file="Source/Friction.h"/>
+      <FILE id="aqn0eH" name="Friction.cpp" compile="1" resource="0" file="Source/Friction.cpp"/>
+      <FILE id="poZ6xj" name="Inertial.h" compile="0" resource="0" file="Source/Inertial.h"/>
+      <FILE id="PtciDp" name="Inertial.cpp" compile="1" resource="0" file="Source/Inertial.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
+  <EXPORTFORMATS>
+    <VS2019 targetFolder="Builds/VisualStudio2019">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="FrictionModel"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="FrictionModel"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2019>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <LIVE_SETTINGS>
+    <WINDOWS/>
+  </LIVE_SETTINGS>
+</JUCERPROJECT>
