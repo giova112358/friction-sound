@@ -27,6 +27,7 @@ public:
     DspProcessor(char* key0, char* key1);
     ~DspProcessor();
 
+    void setExternalForce(double f);
     void setSampleRate(double sampleRate);
     double process();
     void reset();

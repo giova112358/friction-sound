@@ -63,34 +63,37 @@ public:
     void prepare(double sampleRate); /*set the processing parameters of the two
                                      impact models*/
 
-                                     //==============================================================================
-                                     /*update methods called when a parameter is changed in the GUI*/
-                                     //==============================================================================
-    void updateVolume();
-    void updateInertialParameters();
-    void updateModalParameters();
-    void updateFrictionParameters();
-
     //==============================================================================
     void reset() override;
 
     //==============================================================================
-    void strike(); /*set the position and velocity parameter of the inertial point
-                   mass */
+    //void strike(); /*set the position and velocity parameter of the inertial point
+    //               mass */
 
-                   //==============================================================================
+    //==============================================================================
     juce::AudioProcessorValueTreeState apvts;
     void addInertialParameters(juce::AudioProcessorValueTreeState::ParameterLayout& layout);
     void addModalParameters(juce::AudioProcessorValueTreeState::ParameterLayout& layout);
     void addFrictionParameters(juce::AudioProcessorValueTreeState::ParameterLayout& layout);
     void addGainParameters(juce::AudioProcessorValueTreeState::ParameterLayout& layout);
+    void addExternalForce(juce::AudioProcessorValueTreeState::ParameterLayout& layout);
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+
+    //==============================================================================
+    /*update methods called when a parameter is changed in the GUI*/
+    //==============================================================================
+    void updateVolume();
+    void updateInertialParameters();
+    void updateModalParameters();
+    void updateFrictionParameters();
+    void updateExternalForce();
 
 private:
     bool isActive{ false };
     bool mustUpdateInertialParameters{ false };
     bool mustUpdateModalParameters{ false };
     bool mustUpdateFrictionParameters{ false };
+    bool mustUpdateExternalForce{ false };
     bool mustUpdateVolume{ false };
     bool mustStrike{ false };
 

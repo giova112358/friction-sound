@@ -43,8 +43,7 @@ FrictionModelAudioProcessor::FrictionModelAudioProcessor()
     apvts.addParameterListener("VIS", this);
     apvts.addParameterListener("NOIS", this);
     apvts.addParameterListener("BREAK", this);
-
-
+    apvts.addParameterListener("EXTFOR", this);
     /*apvts.addParameterListener("BANG", this);*/
     apvts.addParameterListener("VOL", this);
 
@@ -171,6 +170,8 @@ void FrictionModelAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
         updateModalParameters();
     if (mustUpdateFrictionParameters)
         updateFrictionParameters();
+    if (mustUpdateExternalForce)
+        updateExternalForce();
     //if (mustStrike)
     //    strike();
 
@@ -189,7 +190,7 @@ void FrictionModelAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
         for (int sample = 0; sample < numSamples; ++sample) {
             channelData[sample] = 1000 * model[channel]->process();
             channelData[sample] = juce::jlimit(-1.0f, 1.0f, channelData[sample]);
-            //DBG(channelData[sample]);
+            DBG(channelData[sample]);
         }
 
         mVolume[channel].applyGain(channelData, numSamples);
@@ -264,20 +265,10 @@ void FrictionModelAudioProcessor::addInertialParameters(juce::AudioProcessorValu
     std::function<double(const juce::String&)> textToValueFunction =
         [](const juce::String& str) {return str.getFloatValue(); };
 
-    //auto velocity = std::make_unique<juce::AudioParameterFloat>("VEL", "Velocity",
-    //    juce::NormalisableRange<double>(0.001, 40.0), 3.741,
-    //    "m/s", juce::AudioProcessorParameter::genericParameter, 
-    //    valueToTextFunction, textToValueFunction);
-
     auto mass = std::make_unique<juce::AudioParameterFloat>("MASS", "Mass",
         juce::NormalisableRange<float>(0.001, 0.1), 0.011184,
         "Kg", juce::AudioProcessorParameter::genericParameter,
         valueToTextFunction, textToValueFunction);
-
-    //auto force = std::make_unique<juce::AudioParameterFloat>("FOR", "Force", 
-    //    juce::NormalisableRange<double>(0.0, 0.2), 0.0,
-    //    "N", juce::AudioProcessorParameter::genericParameter, 
-    //    valueToTextFunction, textToValueFunction);
 
     auto group = std::make_unique<juce::AudioProcessorParameterGroup>("sdt.inertial", "HAMMER CONTROLS", "|",
         /*std::move(velocity), */std::move(mass)/*, std::move(force)*/);
@@ -293,32 +284,32 @@ void FrictionModelAudioProcessor::addModalParameters(juce::AudioProcessorValueTr
         [](const juce::String& str) {return str.getFloatValue(); };
 
     auto freq0 = std::make_unique<juce::AudioParameterFloat>("FREQ0", "Frequency0",
-        juce::NormalisableRange<float>(20.0, 5000), 1155,
+        juce::NormalisableRange<float>(20.0, 5000), 500,
         "Hz", juce::AudioProcessorParameter::genericParameter,
         valueToTextFunction, textToValueFunction);
 
     auto freq1 = std::make_unique<juce::AudioParameterFloat>("FREQ1", "Frequency1",
-        juce::NormalisableRange<float>(20.0, 5000), 1848,
+        juce::NormalisableRange<float>(20.0, 5000), 650,
         "Hz", juce::AudioProcessorParameter::genericParameter,
         valueToTextFunction, textToValueFunction);
 
     auto freq2 = std::make_unique<juce::AudioParameterFloat>("FREQ2", "Frequency2",
-        juce::NormalisableRange<float>(20.0, 5000), 3580.5,
+        juce::NormalisableRange<float>(20.0, 5000), 910,
         "Hz", juce::AudioProcessorParameter::genericParameter,
         valueToTextFunction, textToValueFunction);
 
     auto dec0 = std::make_unique<juce::AudioParameterFloat>("DEC0", "Decay0",
-        juce::NormalisableRange<float>(0.0, 1.0), 0.00231,
+        juce::NormalisableRange<float>(0.0, 1.0), 0.007,
         "", juce::AudioProcessorParameter::genericParameter,
         valueToTextFunction, textToValueFunction);
 
     auto dec1 = std::make_unique<juce::AudioParameterFloat>("DEC1", "Decay1",
-        juce::NormalisableRange<float>(0.0, 1.0), 0.00154,
+        juce::NormalisableRange<float>(0.0, 1.0), 0.01,
         "", juce::AudioProcessorParameter::genericParameter,
         valueToTextFunction, textToValueFunction);
 
     auto dec2 = std::make_unique<juce::AudioParameterFloat>("DEC2", "Decay2",
-        juce::NormalisableRange<float>(0.0, 1.0), 0.00154,
+        juce::NormalisableRange<float>(0.0, 1.0), 0.007,
         "", juce::AudioProcessorParameter::genericParameter,
         valueToTextFunction, textToValueFunction);
 
@@ -406,6 +397,24 @@ void FrictionModelAudioProcessor::addFrictionParameters(juce::AudioProcessorValu
 
 }
 
+void FrictionModelAudioProcessor::addExternalForce(juce::AudioProcessorValueTreeState::ParameterLayout& layout)
+{
+    std::function<juce::String(double, int)> valueToTextFunction =
+        [](double x, int l) {return juce::String(x, 4);  };
+    std::function<double(const juce::String&)> textToValueFunction =
+        [](const juce::String& str) {return str.getFloatValue(); };
+
+    auto force = std::make_unique<juce::AudioParameterFloat>("EXTFOR", "External Force",
+        juce::NormalisableRange<float>(-3, 3), -1.3,
+        "N", juce::AudioProcessorParameter::genericParameter,
+        valueToTextFunction, textToValueFunction);
+
+    auto group = std::make_unique<juce::AudioProcessorParameterGroup>("sdt.external_force", "EXTERNAL FORCE", "|",
+        std::move(force));
+
+    layout.add(std::move(group));
+}
+
 void FrictionModelAudioProcessor::addGainParameters(juce::AudioProcessorValueTreeState::ParameterLayout& layout)
 {
     std::function<juce::String(float, int)> valueToTextFunction =
@@ -433,6 +442,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout FrictionModelAudioProcessor:
     FrictionModelAudioProcessor::addInertialParameters(layout);
     FrictionModelAudioProcessor::addModalParameters(layout);
     FrictionModelAudioProcessor::addFrictionParameters(layout);
+    FrictionModelAudioProcessor::addExternalForce(layout);
     FrictionModelAudioProcessor::addGainParameters(layout);
     return layout;
 }
@@ -443,7 +453,7 @@ void FrictionModelAudioProcessor::updateInertialParameters()
     mustUpdateInertialParameters = false;
     auto m = apvts.getRawParameterValue("MASS");
     //auto vel = apvts.getRawParameterValue("VEL");
-    /*auto f = apvts.getRawParameterValue("FOR");*/
+    auto f = apvts.getRawParameterValue("EXTFOR");
 
     double mass = m->load();
     //double velocity = vel->load();
@@ -510,6 +520,17 @@ void FrictionModelAudioProcessor::updateFrictionParameters()
     }
 }
 
+void FrictionModelAudioProcessor::updateExternalForce()
+{
+    mustUpdateExternalForce = false;
+
+    auto force = apvts.getRawParameterValue("EXTFOR");
+
+    for (int channel = 0; channel < numChannels; ++channel) {
+        model[channel]->setExternalForce(force->load());
+    }
+}
+
 void FrictionModelAudioProcessor::updateVolume()
 {
     mustUpdateVolume = false;
@@ -565,6 +586,8 @@ void FrictionModelAudioProcessor::parameterChanged(const juce::String& parameter
         mustUpdateFrictionParameters = true;
     if (parameterID == "BREAK")
         mustUpdateFrictionParameters = true;
+    if (parameterID == "EXTFOR")
+        mustUpdateExternalForce = true;
     if (parameterID == "VOL")
         mustUpdateVolume = true;
     //if (parameterID == "BANG")
