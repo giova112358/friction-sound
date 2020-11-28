@@ -188,9 +188,9 @@ void FrictionModelAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
         auto* channelData = buffer.getWritePointer(channel);
 
         for (int sample = 0; sample < numSamples; ++sample) {
-            channelData[sample] = 1000 * model[channel]->process();
-            channelData[sample] = juce::jlimit(-1.0f, 1.0f, channelData[sample]);
-            DBG(channelData[sample]);
+            channelData[sample] = 2000 * model[channel]->process();
+            /*channelData[sample] = juce::jlimit(-1.0f, 1.0f, channelData[sample]);*/
+            /*DBG(channelData[sample]);*/
         }
 
         mVolume[channel].applyGain(channelData, numSamples);
@@ -212,16 +212,16 @@ juce::AudioProcessorEditor* FrictionModelAudioProcessor::createEditor()
 //==============================================================================
 void FrictionModelAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
-    juce::ValueTree copyState = apvts.copyState();
+    /*juce::ValueTree copyState = apvts.copyState();
     std::unique_ptr<juce::XmlElement> xml = copyState.createXml();
-    copyXmlToBinary(*xml.get(), destData);
+    copyXmlToBinary(*xml.get(), destData);*/
 }
 
 void FrictionModelAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    std::unique_ptr<juce::XmlElement> xml = getXmlFromBinary(data, sizeInBytes);
+    /*std::unique_ptr<juce::XmlElement> xml = getXmlFromBinary(data, sizeInBytes);
     juce::ValueTree copyState = juce::ValueTree::fromXml(*xml.get());
-    apvts.replaceState(copyState);
+    apvts.replaceState(copyState);*/
 }
 
 //==============================================================================
