@@ -183,12 +183,13 @@ void FrictionModelAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear(i, 0, buffer.getNumSamples());
 
+    auto force = apvts.getRawParameterValue("EXTFOR");
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
         auto* channelData = buffer.getWritePointer(channel);
 
         for (int sample = 0; sample < numSamples; ++sample) {
-            channelData[sample] = 2000 * model[channel]->process();
+            channelData[sample] = 1000* model[channel]->process(force->load());
             /*channelData[sample] = juce::jlimit(-1.0f, 1.0f, channelData[sample]);*/
             /*DBG(channelData[sample]);*/
         }
@@ -205,8 +206,8 @@ bool FrictionModelAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* FrictionModelAudioProcessor::createEditor()
 {
-    /*return new FrictionModelAudioProcessorEditor (*this);*/
-    return new juce::GenericAudioProcessorEditor(this);
+    return new FrictionModelAudioProcessorEditor (*this);
+   /* return new juce::GenericAudioProcessorEditor(this);*/
 }
 
 //==============================================================================
@@ -223,6 +224,23 @@ void FrictionModelAudioProcessor::setStateInformation (const void* data, int siz
     juce::ValueTree copyState = juce::ValueTree::fromXml(*xml.get());
     apvts.replaceState(copyState);*/
 }
+
+//==============================================================================
+void FrictionModelAudioProcessor::setPresetStateValueTree(std::unique_ptr<juce::XmlElement> xmlState)
+{
+    juce::ValueTree copyState = juce::ValueTree::fromXml(*xmlState.get());
+    apvts.replaceState(copyState);
+}
+
+juce::XmlElement FrictionModelAudioProcessor::getAndSavePresetStateValueTree()
+{
+    juce::ValueTree copyState = apvts.copyState();
+    std::unique_ptr<juce::XmlElement> xml = copyState.createXml();
+    juce::XmlElement xmlState = *xml.get();
+
+    return xmlState;
+}
+
 
 //==============================================================================
 // This creates new instances of the plugin..
@@ -344,7 +362,7 @@ void FrictionModelAudioProcessor::addFrictionParameters(juce::AudioProcessorValu
         [](const juce::String& str) {return str.getFloatValue(); };
 
     auto force = std::make_unique<juce::AudioParameterFloat>("FOR", "Force",
-        juce::NormalisableRange<float>(500, 5000), 1606.616753,
+        juce::NormalisableRange<float>(0.005, 1), 0.249227,
         "", juce::AudioProcessorParameter::genericParameter,
         valueToTextFunction, textToValueFunction);
 
@@ -453,7 +471,6 @@ void FrictionModelAudioProcessor::updateInertialParameters()
     mustUpdateInertialParameters = false;
     auto m = apvts.getRawParameterValue("MASS");
     //auto vel = apvts.getRawParameterValue("VEL");
-    auto f = apvts.getRawParameterValue("EXTFOR");
 
     double mass = m->load();
     //double velocity = vel->load();

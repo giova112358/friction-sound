@@ -56,6 +56,10 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     //==============================================================================
+    void setPresetStateValueTree(std::unique_ptr<juce::XmlElement> xmlState);
+    juce::XmlElement getAndSavePresetStateValueTree();
+
+    //==============================================================================
     void init(); /*initialize the two impact models and register the interactions
                  called at the constructor of the PluginProcessor */
 

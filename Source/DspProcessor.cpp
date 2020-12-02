@@ -24,7 +24,9 @@ DspProcessor::~DspProcessor()
 
 void DspProcessor::setExternalForce(double f)
 {
-    this->f = f;
+    externalForce = f;
+    force.store(f);
+    
 }
 
 void DspProcessor::setSampleRate(double sampleRate)
@@ -32,9 +34,10 @@ void DspProcessor::setSampleRate(double sampleRate)
     SDT_setSampleRate(sampleRate);
 }
 
-double DspProcessor::process()
+double DspProcessor::process(double f)
 {
-    SDTInteractor_dsp(frictionModel.get()->getSDTObj(), f, 0, 0, 0, 0, 0, tmpOuts);
+    /*force.store(f);*/
+    SDTInteractor_dsp(frictionModel.get()->getSDTObj(), /*externalForce*//*force.load()*/f, 0, 0, 0, 0, 0, tmpOuts);
     return tmpOuts[1];
 }
 
