@@ -13,7 +13,7 @@
     - [Synthesis Algorithm](#synthesis-algorithm)
 - [Friction Model Plugin](#impact-model-plugin)
     - [Software Architecture](#software-architecture)
-- [References](#references)
+
  
 ## Introduction
 The Sound Design Toolkit consists in a library of ecologically founded (e.g physics based) sound synthesis algorithms.
