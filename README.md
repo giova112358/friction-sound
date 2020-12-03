@@ -50,11 +50,12 @@ The final sound is the total displacement of the system. The synthesis algorithm
 
 The friction model plugin was implemented by taking as a reference the sdt.friction Max/Msp patch from the Sound Design Toolkit.
 
-In this particular realization of the impact model there are two resonators, they expose one or more pickup points, object displacement and velocity can be read at any time from these pickup points. The two resonators implemented in this impact model are:
+In this particular realization of the friction model there are two resonators and one interactor. The resonators expose one or more pickup points, object displacement and velocity can be read at any time from these pickup points. The two resonators and the interactor implemented in this impact model are:
 
 - Inertial mass: Simulates a simple inertial point mass, i. e. the hammer resonator mostly used as exciter for modal resonators;
 - Modal resonator: Physical model of a set of parallel mass–spring–damper mechanical oscillators, with each oscillator representing a resonant frequency of the object.
-Interactor algorithms read the state of exactly two pickup points, one for each interacting resonator, and apply a force accordingly.
+
+The interaction algorithm has a modular structure "resonator-interactor–resonator", it computes the friction force from the relative velocity between the two contact point.
 
 ### Software Architecture
 
